@@ -1,0 +1,7 @@
+month,amount,is_expense
+01, ,true
+01, , false
+02, , true
+02, , false
+03, , true
+03, , false
