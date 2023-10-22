@@ -1,6 +1,29 @@
+import java.util.Scanner;
+
 public class Accouting {
     public static void startApp() {
         printMenu();
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            short inDigit = scanner.nextShort();
+            switch (inDigit) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6: System.exit(0);
+                    break;
+                default:
+            }
+
+        }
+
     }
 
     public static void printMenu() {
