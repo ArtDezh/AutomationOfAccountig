@@ -1,7 +1,7 @@
 month,amount,is_expense
-01, ,true
-01, , false
-02, , true
-02, , false
-03, , true
-03, , false
+01,97600,true
+01,669,false
+02,96400,true
+02,408,false
+03,96000,true
+03,418,false
