@@ -42,4 +42,9 @@ public class MonthlyReport {
     public void setSumOfOne(int sumOfOne) {
         this.sumOfOne = sumOfOne;
     }
+
+    @Override
+    public String toString() {
+        return getItemName() + " " + isExpense + " " + getQuantity() + " " + getSumOfOne();
+    }
 }

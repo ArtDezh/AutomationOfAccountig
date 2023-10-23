@@ -32,4 +32,9 @@ public class YearlyReport {
     public void setIs_expense(boolean is_expense) {
         this.is_expense = is_expense;
     }
+
+    @Override
+    public String toString() {
+        return getMonth() + " " + isIs_expense() + " " + getAmount();
+    }
 }
