@@ -30,7 +30,7 @@ public class Accouting {
                     printMenu();
                     break;
                 case 3:
-                    printArrayList(listForMapYear);
+                    //printArrayList(listForMapYear);
                     //printHashMap(listMonthObject);
                     printMenu();
                     break;
@@ -95,9 +95,9 @@ public class Accouting {
         }
     }*/
 
-    private void printArrayList(ArrayList<YearlyReport> list) {
+    /*private void printArrayList(ArrayList<YearlyReport> list) {
         for (YearlyReport s: list) {
             System.out.println(s);
         }
-    }
+    }*/
 }
