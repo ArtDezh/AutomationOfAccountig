@@ -5,9 +5,7 @@ import java.util.*;
 
 public class Accouting {
     HashMap<Integer, ArrayList<MonthlyReport>> listMonthObject = new HashMap<>();
-    ArrayList<MonthlyReport> listForMapMonth = new ArrayList<>();
     ArrayList<YearlyReport> listForMapYear = new ArrayList<>();
-
 
 
     public void startApp() {
@@ -30,8 +28,7 @@ public class Accouting {
                     printMenu();
                     break;
                 case 3:
-                    //printArrayList(listForMapYear);
-                    //printHashMap(listMonthObject);
+                    compareReports();
                     printMenu();
                     break;
                 case 4:
@@ -66,6 +63,7 @@ public class Accouting {
     }
 
     private void splitStrAndAddToHashMap(String str, int j) {
+        ArrayList<MonthlyReport> listForMapMonth = new ArrayList<>();
         String[] lines = str.split("\r\n");
         String[] linesContents;
         if (j != 4) {
@@ -80,24 +78,33 @@ public class Accouting {
                 listForMapYear.add(new YearlyReport(linesContents[0], Integer.parseInt(linesContents[1]), Boolean.parseBoolean(linesContents[2])));
             }
         }
-
     }
 
-    /*private void printHashMap(HashMap<Integer, ArrayList<MonthlyReport>> list) {
-        for (Map.Entry<Integer, ArrayList<MonthlyReport>> entry : list.entrySet()) {
-            Integer key = entry.getKey();
-            ArrayList<MonthlyReport> values = entry.getValue();
-            System.out.println(key + " месяц: ");
-            for (MonthlyReport val : values) {
-                System.out.println(val);
-            }
-            System.out.println();
+    private void compareReports() {
+        int i = 1;
+        int flag = 0; // маркер для положительной проверки месячного и годового отчетов
+        for (int j = 0; j < listForMapYear.size(); j = j + 2) {
+            if ((incomeAndCostCount(listMonthObject, i)[0] == listForMapYear.get(j).getAmount()) && (!listForMapYear.get(j).isIs_expense()) && (i == Integer.parseInt(listForMapYear.get(j).getMonth()))) {
+                flag++;
+            } else System.out.println("Отчет по доходам за " + i + " месяц не совпадают с годовым отчетом.");
+            if ((incomeAndCostCount(listMonthObject, i)[1] == listForMapYear.get(j + 1).getAmount()) && (listForMapYear.get(j + 1).isIs_expense()) && (i == Integer.parseInt(listForMapYear.get(j + 1).getMonth()))) {
+                flag++;
+            } else System.out.println("Отчет по расходам за " + i + " месяц не совпадают с годовым отчетом.");
+            i++;
         }
-    }*/
+        if (flag == listForMapYear.size()) System.out.println("Месячные и годовой отчеты совпадают.");
+    }
 
-    /*private void printArrayList(ArrayList<YearlyReport> list) {
-        for (YearlyReport s: list) {
-            System.out.println(s);
+    private int[] incomeAndCostCount(HashMap<Integer, ArrayList<MonthlyReport>> list, int numberOfMonth) {
+        int[] incomeAndCosts = new int[2];// [0] - доходы  [1] - расходы
+        ArrayList<MonthlyReport> values = list.get(numberOfMonth);
+        for (MonthlyReport mr : values) {
+            if (mr.isExpense()) {
+                incomeAndCosts[1] = incomeAndCosts[1] + (mr.getSumOfOne() * mr.getQuantity());
+            } else {
+                incomeAndCosts[0] = incomeAndCosts[0] + (mr.getSumOfOne() * mr.getQuantity());
+            }
         }
-    }*/
+        return incomeAndCosts;
+    }
 }
