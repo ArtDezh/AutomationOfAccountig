@@ -32,6 +32,9 @@ public class Accouting {
                     printMenu();
                     break;
                 case 4:
+                    infoForMonth(listMonthObject);
+                    System.out.println();
+                    printMenu();
                     break;
                 case 5:
                     break;
@@ -48,9 +51,8 @@ public class Accouting {
         System.out.println("2. Считать годовой отчет");
         System.out.println("3. Сверить отчеты");
         System.out.println("4. Вывести информацию о всех месячных отчетах");
-        System.out.println("5. Вывести информацию о всех месячных отчетах");
+        System.out.println("5. Вывести информацию о годовом отчете");
         System.out.println("6. Выход из приложения");
-
     }
 
     private String readFileContentsOrNull(String path) {
@@ -106,5 +108,39 @@ public class Accouting {
             }
         }
         return incomeAndCosts;
+    }
+
+    private void infoForMonth(HashMap<Integer, ArrayList<MonthlyReport>> map) {
+        for (Map.Entry<Integer, ArrayList<MonthlyReport>> entry : map.entrySet()) {
+            int key = entry.getKey();
+            ArrayList<MonthlyReport> values = entry.getValue();
+
+            String nameProductIncome = "";
+            int priceProductIncome = 0;
+            int maxValueProductIncome = 0;
+
+            String nameProductCost = "";
+            int priceProductCost = 0;
+            int maxValueProductCost = 0;
+
+            for (MonthlyReport mr : values) {
+                int temp = mr.getQuantity() * mr.getSumOfOne();
+                if (mr.isExpense() == false && maxValueProductIncome < temp) {
+                    maxValueProductIncome = temp;
+                    priceProductIncome = mr.getSumOfOne();
+                    nameProductIncome = mr.getItemName();
+
+                }
+
+                if (mr.isExpense() == true && maxValueProductCost < temp) {
+                    maxValueProductCost = temp;
+                    priceProductCost = mr.getSumOfOne();
+                    nameProductCost = mr.getItemName();
+
+                }
+            }
+            System.out.println("В 0" + key + " месяце самый прибыльный товар - " + nameProductIncome + " с суммуой " + priceProductIncome);
+            System.out.println("В 0" + key + " месяце самая большая трата - " + nameProductCost + " на сумму " + priceProductCost);
+        }
     }
 }
