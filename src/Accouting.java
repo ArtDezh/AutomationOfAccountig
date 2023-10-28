@@ -37,6 +37,8 @@ public class Accouting {
                     printMenu();
                     break;
                 case 5:
+                    getInfoForYear(listForMapYear);
+                    printMenu();
                     break;
                 case 6:
                     System.exit(0);
@@ -142,5 +144,19 @@ public class Accouting {
             System.out.println("В 0" + key + " месяце самый прибыльный товар - " + nameProductIncome + " с суммуой " + priceProductIncome);
             System.out.println("В 0" + key + " месяце самая большая трата - " + nameProductCost + " на сумму " + priceProductCost);
         }
+    }
+
+    private void getInfoForYear(ArrayList<YearlyReport> list) {
+        int averageCostForAllMonths = 0;
+        int averageIncomForAllMonths = 0;
+
+        for (int i = 0; i < list.size(); i = i + 2) {
+            int diff = list.get(i).getAmount() - list.get(i + 1).getAmount();
+            averageIncomForAllMonths += list.get(i).getAmount();
+            averageCostForAllMonths += list.get(i + 1).getAmount();
+            System.out.println("Прибыль за " + list.get(i).getMonth() + " месяц составляет " + diff + "\n");
+        }
+        System.out.println("Средний расход за год составляет: " + averageCostForAllMonths / (list.size() / 2));
+        System.out.println("Средний доход за год составляет: " + averageIncomForAllMonths / (list.size() / 2));
     }
 }
